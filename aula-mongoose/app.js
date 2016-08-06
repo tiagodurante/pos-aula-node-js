@@ -19,7 +19,7 @@ http.createServer((req, res) => {
         case '/listar':
             PokemonModel.find({}, function(err, data) {
                 if (err) return console.log('ERRO: ', err)
-                return res.end('Buscou: ' + data)
+                res.end('Buscou: ' + data)
             })
             break
         case '/criar':
@@ -27,7 +27,7 @@ http.createServer((req, res) => {
                 name: 'Suissamon'
             }, function(err, data) {
                 if (err) return console.log('ERRO: ', err)
-                return res.end('Inseriu:', data)
+                res.end('Inseriu:', data)
             })
             break
         case '/atualizar':
@@ -37,15 +37,15 @@ http.createServer((req, res) => {
                 attack: 9001
             }, (err, data) => {
                 if (err) return console.log('ERRO: ', err)
-                return res.end('Buscou:', data)
+                res.end('ATUALIZOU:', data)
             })
             break
         case '/remover':
             PokemonModel.remove({
-                _id: '57a608817c5cfcf3043a8c90'
+                name: /suissamon/i
             }, (err, data) => {
                 if (err) return console.log('ERRO: ', err)
-                return res.end('Buscou:', data)
+                res.end('removeu:', data)
             })
             break
         default:
