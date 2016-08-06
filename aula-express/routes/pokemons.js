@@ -1,14 +1,6 @@
-var express = require('express');
-// var PokemonModel = require('./models/pokemon')
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
-const _schema = {
-    name: String,
-    attack: Number,
-    defense: Number
-}
-const pokemonSchema = new Schema(_schema)
-const PokemonModel = mongoose.model('Pokemon', pokemonSchema)
+var express = require('express')
+var PokemonModel = require('./models/pokemons')
+
 var router = express.Router();
 
 /* GET users listing. */
