@@ -1,5 +1,16 @@
 let PokemonModel = require('./model') //remover esta linha depois
+let events = require('events')
 let CONTROLLER = require('./_controller')
+
+const eventEmitter = new events.EventEmitter()
+
+const cbCrudCreater = (data) => {
+    console.log('recebe: ' + data);
+    const mod = data.mod
+    const callback = data.callback
+}
+
+eventEmitter.on('crud:create', cbCrudCreater)
 
 let CRUD = {
     create: (req, res) => {
@@ -8,6 +19,11 @@ let CRUD = {
             if (err) throw new Error(err)
             res.json(data)
         }
+        let object = {
+            mod,
+            callback
+        }
+        eventEmitter.emit('crud:create', JSON.stringify(object));
         CONTROLLER.create(mod, callback)
     },
     put: (req, res) => {
@@ -27,7 +43,7 @@ let CRUD = {
         })
     },
     getAll: (req, res) => {
-        let callback = () => {
+        let callback = (err, data) => {
             if (err) throw new Error(err)
             res.json(data)
         }

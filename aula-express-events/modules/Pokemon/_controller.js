@@ -1,6 +1,7 @@
 'use strict'
 
 const Model = require('./model')
+let events = require('events')
 
 const CONTROLLER = {
     create: (data, callback) => {
@@ -10,18 +11,13 @@ const CONTROLLER = {
     find: (query, callback) => {
         Model.find(query, callback)
     },
-    update: (query, mod, options) => {
+    update: (query, mod, options, callback) => {
         options = options || {}
-        Model.update(query, mod, options, function(err, data) {
-            if (err) {
-                return console.log('ERRO: ', err)
-            }
-            return console.log('Alterou:', data)
-        })
+        Model.update(query, mod, options, callback)
     },
     delete: (query, callback) => {
         Model.remove(query, callback)
-    },
+    }
 }
 
 module.exports = CONTROLLER
