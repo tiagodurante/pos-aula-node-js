@@ -1,11 +1,14 @@
-let PokemonModel = require('./model')
+let PokemonModel = require('./model') //remover esta linha depois
+let CONTROLLER = require('./_controller')
 
-let controller = {
+let CRUD = {
     create: (req, res) => {
-        PokemonModel.create(req.body, (err, data) => {
+        let mod = req.body
+        let callback = (err, data) => {
             if (err) throw new Error(err)
             res.json(data)
-        })
+        }
+        CONTROLLER.create(mod, callback)
     },
     put: (req, res) => {
         PokemonModel.update({
@@ -24,10 +27,11 @@ let controller = {
         })
     },
     getAll: (req, res) => {
-        PokemonModel.find({}, (err, data) => {
+        let callback = () => {
             if (err) throw new Error(err)
             res.json(data)
-        })
+        }
+        CONTROLLER.find({}, callback)
     },
     get: (req, res) => {
         PokemonModel.findOne({
@@ -39,4 +43,4 @@ let controller = {
     }
 }
 
-module.exports = controller
+module.exports = CRUD
